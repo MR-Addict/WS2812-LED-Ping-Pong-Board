@@ -1,7 +1,9 @@
 # WS2812-LED-Ping-Pong-Board
-Using 135 WS2812 LEDS, a Arduino Mini board,  Bluetooth Module,and DS1302 Module
-In this project, I use Ping Pong to cover the wooden board, use mit app inventor to bulid my own android app that controls the borad display.
-The have some animated display and can also display time ,time able to scroll too!!
+Using 135 WS2812 LEDS, an Arduino Mini board, a Bluetooth Module,and a DS1302 Module.
+
+In this project, I use Ping Pong to cover the wooden board, use MIT APP INVENTOR to bulid my own android app to control the borad.
+
+The baord has some animated display and can also display time,time able to scroll too!!
 ![IMG_20210611_013458](https://user-images.githubusercontent.com/75357598/121655079-eb9ee700-cad0-11eb-8b81-7881bab827aa.jpg)
 ![Screenshot_20210611_155042](https://user-images.githubusercontent.com/75357598/121654450-51d73a00-cad0-11eb-8cdc-119381321f55.jpg)
 ![Ping Pong Number](https://user-images.githubusercontent.com/75357598/121654973-d4f89000-cad0-11eb-8df4-7e1e9c1c95a8.png)
