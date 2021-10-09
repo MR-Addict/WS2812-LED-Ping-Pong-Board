@@ -14,4 +14,6 @@ The baord has some animated display and can also display time,time able to scrol
 ![IMG_20210611_155602](https://user-images.githubusercontent.com/75357598/121655055-e6419c80-cad0-11eb-8ceb-883dae8c9f3f.jpg)
 ![IMG_20210611_155743](https://user-images.githubusercontent.com/75357598/121655064-e93c8d00-cad0-11eb-99fc-d63a31ee0954.jpg)
 ![IMG_20210611_155235](https://user-images.githubusercontent.com/75357598/121655100-ee99d780-cad0-11eb-9ed4-a95d23f6ca66.jpg)
+
+
 https://user-images.githubusercontent.com/75357598/121656129-bf379a80-cad1-11eb-9fc5-0b48965fc32e.mp4
