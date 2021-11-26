@@ -1,38 +1,62 @@
 # WS2812-LED-Ping-Pong-Board
-## 1. Finla Resuult
-![Finall result](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image02.jpg)
 
-## 2. Board Scheamtic
+In this project, I use Ping Pong to cover the wooden board, use MIT APP Invenotr to bulid a custom android app.
+
+Including 135 WS2812 LEDs, an ESP32 DEV Board, and a DS3231 Module.
+
+The baord has some animated effects, display time, time able to scroll too and some more features!
+
+## 1. Electronic Parts
+- **DC005** X 1
+- **Button** X 4
+- **WS2812LED** X 135
+- **DS3231 Module** X 1
+- **100uF Capaciter** X 1
+- **ESP32 DEV Board** X 1
+- **5V 3A Power Adapter** X 1
+
+## 2. Some Other Parts
+- **Ping Pong Balls** X 135
+- **24.78mm X 84mm Ply Board** X 1
+- **Some Other Decoration Parts** X N
+
+## 3. Functions It Features
+- **Display Time**
+- **Display Date**
+- **7 Dynamic Light Effects**
+- **Scroll Custom Characters**
+- **Android App Control Through Bluetooth**
+
+## 4. Contorl Your Board
+- **Control with Buttons**
+  - **Button1---LED ON/OFF**
+  - **Button2---Auto ON/OFF**
+  - **Button3---Previous Mode**
+  - **Button4---Next Mode**
+- **Control with App**
+  - **Set Time**
+  - **Set Date**
+  - **LED ON/OFF**
+  - **Text Color**
+  - **Select Mode**
+  - **Bluetooth ON/OFF**
+  - **Background Palette**
+
+## 5. Board Schematic
 ![Schematic](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Schematic.png)
 
-## 3. Board Layout and Size
-![Board Layout and Size](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image05.jpg)
+## 6. Board Layout & Size
 Note that, assemble your WS2812 LED strip in 'Z' shape as the number marked.
-Before you paste LED strip on board, you'd better draw some reference lines and corsses on board.
+Before you paste LED strip on board, you'd better draw some reference lines and mark corsses on board.
+![Board Layout and Size](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image05.jpg)
 
-## 4. Electronic Parts
-- **DC005**X1
-- **Button**X4
-- **WS2812LED**X135
-- **DS3231 Module**X1
-- **100uF Capaciter**X1
-- **ESP32 DEV Board**X1
+## 7. Final Resuult
+![Finall result](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image02.jpg)
 
-Using 135 WS2812 LEDS, an Arduino Mini board, a Bluetooth Module,and a DS1302 Module.
+## 8. Android App
+[Link](https://gallery.appinventor.mit.edu/?galleryid=3229b75a-cf51-46cc-966c-aea168e45c9e) to This App in Mit APP Inventor Gallery
+![Android App](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image01.jpg)
 
-In this project, I use Ping Pong to cover the wooden board, use MIT APP INVENTOR to bulid my own android app to control the borad.
-
-The baord has some animated display and can also display time,time able to scroll too!!
-![IMG_20210611_013458](https://user-images.githubusercontent.com/75357598/121655079-eb9ee700-cad0-11eb-8b81-7881bab827aa.jpg)
-![Screenshot_20210611_155042](https://user-images.githubusercontent.com/75357598/121654450-51d73a00-cad0-11eb-8cdc-119381321f55.jpg)
-![Ping Pong Number](https://user-images.githubusercontent.com/75357598/121654973-d4f89000-cad0-11eb-8df4-7e1e9c1c95a8.png)
-![Board size](https://user-images.githubusercontent.com/75357598/121654949-d1fd9f80-cad0-11eb-9d2b-ef902ffff1f2.png)
-![IMG_20210611_155250](https://user-images.githubusercontent.com/75357598/121655000-db870780-cad0-11eb-9ec6-7bebcf2b6646.jpg)
-![IMG_20210611_155314](https://user-images.githubusercontent.com/75357598/121655031-e0e45200-cad0-11eb-90a5-a70b26961c38.jpg)
-![IMG_20210611_155444](https://user-images.githubusercontent.com/75357598/121655044-e3df4280-cad0-11eb-9d6d-7edd42022937.jpg)
-![IMG_20210611_155602](https://user-images.githubusercontent.com/75357598/121655055-e6419c80-cad0-11eb-8ceb-883dae8c9f3f.jpg)
-![IMG_20210611_155743](https://user-images.githubusercontent.com/75357598/121655064-e93c8d00-cad0-11eb-99fc-d63a31ee0954.jpg)
-![IMG_20210611_155235](https://user-images.githubusercontent.com/75357598/121655100-ee99d780-cad0-11eb-9ed4-a95d23f6ca66.jpg)
-
+## 9. Presentation Video
 
 https://user-images.githubusercontent.com/75357598/121656129-bf379a80-cad1-11eb-9fc5-0b48965fc32e.mp4
