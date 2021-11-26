@@ -47,15 +47,16 @@ The baord has some animated effects, display time, time able to scroll too and s
 
 ## 6. Board Layout & Size
 Note that, assemble your WS2812 LED strip in 'Z' shape as the number marked.
+
 Before you paste LED strip on board, you'd better draw some reference lines and mark corsses on board.
 ![Board Layout and Size](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image05.jpg)
 
-## 7. Final Resuult
-![Finall result](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image02.jpg)
-
-## 8. Android App
+## 7. Android App
 [Link](https://gallery.appinventor.mit.edu/?galleryid=3229b75a-cf51-46cc-966c-aea168e45c9e) to This App in Mit APP Inventor Gallery
 ![Android App](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image01.jpg)
+
+## 8. Final Project
+![Finall result](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image02.jpg)
 
 ## 9. Presentation Video
 
