@@ -1,4 +1,23 @@
 # WS2812-LED-Ping-Pong-Board
+## 1. Finla Resuult
+![Finall result](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image02.jpg)
+
+## 2. Board Scheamtic
+![Schematic](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Schematic.png)
+
+## 3. Board Layout and Size
+![Board Layout and Size](https://github.com/MR-Addict/WS2812-LED-Ping-Pong-Board/blob/main/Images/Image05.jpg)
+Note that, assemble your WS2812 LED strip in 'Z' shape as the number marked.
+Before you paste LED strip on board, you'd better draw some reference lines and corsses on board.
+
+## 4. Electronic Parts
+- **DC005**X1
+- **Button**X4
+- **WS2812LED**X135
+- **DS3231 Module**X1
+- **100uF Capaciter**X1
+- **ESP32 DEV Board**X1
+
 Using 135 WS2812 LEDS, an Arduino Mini board, a Bluetooth Module,and a DS1302 Module.
 
 In this project, I use Ping Pong to cover the wooden board, use MIT APP INVENTOR to bulid my own android app to control the borad.
