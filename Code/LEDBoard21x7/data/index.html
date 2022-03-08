@@ -5,15 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>LED Board</title>
+    <title>LED Board 507</title>
   </head>
   <body align="center">
-    <h1>LED Board</h1>
-    <p id="LED">LED OFF</p>
-    <label class="switch">
-      <input onchange="sendData(this)" type="checkbox" id="output" />
-      <span class="slider round"></span>
-    </label>
+    <div>
+      <h2>LED Board 507</h2>
+      <p id="LED">LED OFF</p>
+      <p>
+        <label class="switch">
+          <input onchange="switchLED(this)" type="checkbox" id="output" />
+          <span class="slider round"></span>
+        </label>
+      </p>
+      <p>
+        <label>显示模式</label>
+        <select name="LED显示模式" id="ledmode" onchange="selectLEDMode(this)">
+          <option value="0">显示时间</option>
+          <option value="1">显示日期</option>
+          <option value="2">动态光效1</option>
+          <option value="3">动态光效2</option>
+          <option value="4">动态光效3</option>
+          <option value="5">动态光效4</option>
+          <option value="6">动态光效5</option>
+          <option value="7">随机光效</option>
+        </select>
+      </p>
+      <p>
+        <label>设置时间</label>
+        <input type="time" class="timeBox" id="timepicker" name="设置时间" onchange="setTime(this)" />
+      </p>
+      <p>
+        <label>设置日期</label>
+        <input type="date" class="dateBox" id="datepicker" name="设置日期" onchange="setDate(this)" />
+      </p>
+    </div>
   </body>
   <script src="index.js"></script>
 </html>

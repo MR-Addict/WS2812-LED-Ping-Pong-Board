@@ -1,8 +1,9 @@
+/* Switch style */
 .switch {
   position: relative;
   display: inline-block;
-  width: 10rem;
-  height: 5rem;
+  width: 6rem;
+  height: 3rem;
 }
 .switch input {
   display: none;
@@ -19,8 +20,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 4rem;
-  width: 5rem;
+  height: 2rem;
+  width: 2rem;
   left: 0.5rem;
   bottom: 0.5rem;
   background-color: white;
@@ -32,14 +33,52 @@ input:checked + .slider {
   background-color: #2196f3;
 }
 input:checked + .slider:before {
-  -webkit-transform: translateX(4rem);
-  -ms-transform: translateX(4rem);
-  transform: translateX(4rem);
+  -webkit-transform: translateX(3rem);
+  -ms-transform: translateX(3rem);
+  transform: translateX(3rem);
 }
-h1 {
-  margin: 2rem;
-  font-size: 3rem;
+
+/* Select box style */
+select {
+  width: 10rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: #effffd;
+  box-shadow: 3px 3px 3px black;
 }
-p {
-  font-size: 2rem;
+
+/* Time style */
+.timeBox {
+  width: 10rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: #effffd;
+  box-shadow: 3px 3px 3px black;
+}
+
+/* Date style */
+.dateBox {
+  width: 10rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: #effffd;
+  box-shadow: 3px 3px 3px black;
+}
+
+/* Div style */
+div {
+  width: 20rem;
+  margin: auto;
+  background: #50d890;
+  padding: 1rem 1rem 3rem 1rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 5px black;
+  font-size: 1.5rem;
 }

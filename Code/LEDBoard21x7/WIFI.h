@@ -5,15 +5,19 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
         case WStype_CONNECTED: {
                 IPAddress ip = websocket.remoteIP(num);
                 Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
-                String message = "{\"LED\":\"OFF\"}";
-                if (isDisplay) message = "{\"LED\":\"ON\"}";
+
+                String message = "{\"LED\":\"OFF\",\"Mode\":";
+                if (isDisplay) message = "{\"LED\":\"ON\",\"Mode\":";
+                message = message + Mode + ",\"Year\":" + YEAR + ",\"Month\":" + MONTH + ",\"Date\":" + DATE +
+                          ",\"Hour\":" + HOUR + ",\"Minute\":" + MINUTE + '}';
+
                 websocket.sendTXT(num, message);
             }
             break;
         case WStype_TEXT: {
                 Serial.printf("[%u] get Text: %s\n", num, payload);
                 String message = String((char*)( payload));
-                DynamicJsonDocument doc(48);
+                DynamicJsonDocument doc(100);
                 DeserializationError error = deserializeJson(doc, message);
                 if (error) {
                     Serial.print(F("deserializeJson() failed: "));
@@ -23,6 +27,18 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
                 if (doc.containsKey("LED")) {
                     if (doc["LED"] == "ON")isDisplay = true;
                     else if (doc["LED"] == "OFF")isDisplay = false;
+                }
+                else if (doc.containsKey("Mode")) {
+                    Mode = (uint8_t)doc["Mode"];
+                }
+                else if (doc.containsKey("Hour") && Mode == 0) {
+                    HOUR = (uint8_t)doc["Hour"];
+                    MINUTE = (uint8_t)doc["Minute"];
+                }
+                else if (doc.containsKey("Year") && Mode == 1) {
+                    YEAR = (uint16_t)doc["Year"];
+                    MONTH = (uint8_t)doc["Month"];
+                    DATE = (uint8_t)doc["Date"];
                 }
                 websocket.broadcastTXT(message);
             }
