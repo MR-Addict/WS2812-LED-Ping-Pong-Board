@@ -1,0 +1,45 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 10rem;
+  height: 5rem;
+}
+.switch input {
+  display: none;
+}
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 3rem;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 4rem;
+  width: 5rem;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 3rem;
+}
+input:checked + .slider {
+  background-color: #2196f3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(4rem);
+  -ms-transform: translateX(4rem);
+  transform: translateX(4rem);
+}
+h1 {
+  margin: 2rem;
+  font-size: 3rem;
+}
+p {
+  font-size: 2rem;
+}

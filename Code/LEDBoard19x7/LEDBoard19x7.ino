@@ -12,7 +12,7 @@ void setup() {
     pinMode(Button4, INPUT_PULLUP);
 
     // 设置蓝牙名称
-    SerialBT.begin("LED Board02");
+    SerialBT.begin("LED Board 508");
     rtc.begin();
     if (rtc.lostPower())
         rtc.adjust(DateTime(2021, 10, 20, 12, 30, 0));

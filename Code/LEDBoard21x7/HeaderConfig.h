@@ -17,6 +17,9 @@ const uint8_t kMatrixHeight = 7;
 const uint8_t LAST_VISIBLE_LED = 135;
 const uint8_t NUM_LEDS = kMatrixWidth * kMatrixHeight;
 
+AsyncWebServer server(80);
+WebSocketsServer websocket(81);
+
 BluetoothSerial SerialBT;
 RTC_DS3231 rtc;
 CRGB leds[NUM_LEDS];
