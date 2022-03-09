@@ -51,13 +51,21 @@ void notFound(AsyncWebServerRequest *request) {
 }
 
 void WIFI_Init() {
+    // Init SPIFFS
     if (!SPIFFS.begin()) {
         Serial.println("An Error has occurred while mounting SPIFFS");
         return;
     }
+    // change hostname to ledboard-507
+    String hostname = "ledboard-507";
+    WiFi.mode(WIFI_STA);
+    WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
+    WiFi.setHostname(hostname.c_str());
+    // Set station mode
     WiFi.begin(ssid, password);
     Serial.print("Connecting to ");
     Serial.print(ssid);
+    // Connect to WIFI
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print('.');
@@ -67,8 +75,32 @@ void WIFI_Init() {
 }
 
 void Server_Init() {
+    // Login page
     server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
-        request->send(SPIFFS, "/index.html", "text/html");
+        request->send(SPIFFS, "/login.html", "text/html");
+    });
+
+    // Home page
+    server.on("/index", HTTP_POST, [](AsyncWebServerRequest * request) {
+        // Get POST data
+        uint8_t params = request->params();
+        for (uint8_t i = 0; i < params; i++) {
+            AsyncWebParameter* p = request->getParam(i);
+            if (strcmp(p->name().c_str(), "username") == 0) {
+                user = p->value().c_str();
+            }
+            else if (strcmp(p->name().c_str(), "password") == 0) {
+                pwd = p->value().c_str();
+            }
+        }
+
+        // check user and pwd
+        if (user == login_user && pwd == login_pwd) {
+            request->send(SPIFFS, "/index.html", "text/html");
+        }
+        else {
+            request->redirect("/");
+        }
     });
 
     server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {

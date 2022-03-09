@@ -17,7 +17,6 @@ websocket.onmessage = function (event) {
 // websocket events
 function onOpen(event) {
   console.log("Server Connected!");
-  alert("Server Connected!");
 }
 function onClose(event) {
   console.log("Server Disconnected!");
