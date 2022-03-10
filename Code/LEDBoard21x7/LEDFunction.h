@@ -1,3 +1,7 @@
+void alarm_irq() {
+    isAlarm = true;
+}
+
 // 获取LED的位置
 uint8_t Get_XY(uint8_t x, uint8_t y) {
     if (x >= kMatrixWidth || y >= kMatrixHeight)
@@ -13,7 +17,7 @@ void Solid_Color() {
     for (uint8_t y = 0; y < kMatrixHeight; y++) {
         for (uint8_t x = 0, progress = 0; x < kMatrixWidth; x++, progress += 8)
             leds[Get_XY(x, y)] = ColorFromPalette(
-                CloudColors_p, ColorIndex + progress, BRIGHTNESS, LINEARBLEND);
+                                     CloudColors_p, ColorIndex + progress, BRIGHTNESS, LINEARBLEND);
     }
     ColorIndex++;
 }
@@ -25,7 +29,7 @@ void Cross_Snack() {
     leds[PositionIndex] = ColorFromPalette(ColorPalette[Palette_Mode],
                                            ColorIndex, BRIGHTNESS, LINEARBLEND);
     leds[LAST_VISIBLE_LED - PositionIndex - 1] = ColorFromPalette(
-        ColorPalette[Palette_Mode], ColorIndex + 64, BRIGHTNESS, LINEARBLEND);
+                ColorPalette[Palette_Mode], ColorIndex + 64, BRIGHTNESS, LINEARBLEND);
     if (PositionIndex++ == LAST_VISIBLE_LED) {
         ColorIndex += 64;
         PositionIndex = 0;
@@ -40,10 +44,10 @@ void Cross_Line() {
     uint8_t BeatY = beatsin8(20, 0, kMatrixHeight - 1);
     for (uint8_t i = 0; i < kMatrixWidth; i++)
         leds[Get_XY(i, BeatY)] = ColorFromPalette(
-            ColorPalette[Palette_Mode], ColorIndex, BRIGHTNESS, LINEARBLEND);
+                                     ColorPalette[Palette_Mode], ColorIndex, BRIGHTNESS, LINEARBLEND);
     for (uint8_t i = 0; i < kMatrixHeight; i++)
         leds[Get_XY(BeatX, i)] = ColorFromPalette(
-            ColorPalette[Palette_Mode], ColorIndex, BRIGHTNESS, LINEARBLEND);
+                                     ColorPalette[Palette_Mode], ColorIndex, BRIGHTNESS, LINEARBLEND);
     fadeToBlackBy(leds, LAST_VISIBLE_LED, BRIGHTNESS / 3);
     ColorIndex++;
 }
@@ -81,7 +85,7 @@ void Cross_Dot() {
 // 模式4
 void Twinkle() {
     leds[random8(LAST_VISIBLE_LED)] = ColorFromPalette(
-        ColorPalette[Palette_Mode], random8(255), BRIGHTNESS, LINEARBLEND);
+                                          ColorPalette[Palette_Mode], random8(255), BRIGHTNESS, LINEARBLEND);
     fadeToBlackBy(leds, LAST_VISIBLE_LED, BRIGHTNESS / 5);
 }
 
@@ -164,6 +168,21 @@ void Show_Date(uint8_t Speed = 150) {
 // 设置时间
 void SetTime() {
     rtc.adjust(DateTime(YEAR, MONTH, DATE, HOUR, MINUTE, 0));
+}
+
+// 检查闹铃
+void checkAlarm() {
+    if (isAlarm) {
+        if (rtc.alarmFired(1)) {
+            isDisplay = false;
+            rtc.clearAlarm(1);
+        }
+        else if (rtc.alarmFired(2)) {
+            isDisplay = true;
+            rtc.clearAlarm(2);
+        }
+        isAlarm = false;
+    }
 }
 
 // 获取按钮操作

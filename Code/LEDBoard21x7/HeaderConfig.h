@@ -1,4 +1,5 @@
 boolean isDisplay = false;
+boolean isAlarm = false;
 uint8_t Mode = 0;
 uint8_t R = 255, G = 11, B = 76;
 uint8_t Palette_Mode = 0;
@@ -6,10 +7,11 @@ uint8_t MONTH, DATE, HOUR, MINUTE;
 uint16_t YEAR;
 
 const uint8_t LED_PIN = 32;
-const uint8_t Button1 = 5;
+const uint8_t Button1 = 17;
 const uint8_t Button2 = 18;
 const uint8_t Button3 = 19;
 const uint8_t Button4 = 23;
+const uint8_t INT_PIN = 5;
 
 const uint8_t BRIGHTNESS = 100;
 const uint8_t kMatrixWidth = 21;

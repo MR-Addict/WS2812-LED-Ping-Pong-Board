@@ -75,11 +75,6 @@ void WIFI_Init() {
 }
 
 void Server_Init() {
-    // Login page
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
-        request->send(SPIFFS, "/login.html", "text/html");
-    });
-
     // Home page
     server.on("/index", HTTP_POST, [](AsyncWebServerRequest * request) {
         // Get POST data
@@ -101,6 +96,11 @@ void Server_Init() {
         else {
             request->redirect("/");
         }
+    });
+
+    // Login page
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest * request) {
+        request->send(SPIFFS, "/login.html", "text/html");
     });
 
     server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {

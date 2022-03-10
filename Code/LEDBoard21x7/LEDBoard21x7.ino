@@ -25,9 +25,14 @@ void setup() {
 
     // 设置蓝牙名称
     SerialBT.begin("LED Board 507");
+
+    // 启动DS3231
     rtc.begin();
-    if (rtc.lostPower())
-        rtc.adjust(DateTime(2021, 10, 20, 12, 30, 0));
+    rtc.clearAlarm(1);
+    rtc.clearAlarm(2);
+    attachInterrupt(digitalPinToInterrupt(INT_PIN), alarm_irq, FALLING);
+    rtc.setAlarm1(DateTime(2021, 12, 28, 2, 0, 0), DS3231_A1_Hour); // 每日凌晨两点打开LED
+    rtc.setAlarm2(DateTime(2021, 12, 28, 8, 0, 0), DS3231_A2_Hour); // 每日早晨8点打开LED
     DateTime now = rtc.now();
     YEAR = now.year(), MONTH = now.month(), DATE = now.day(), HOUR = now.hour(),
     MINUTE = now.minute();
@@ -41,6 +46,7 @@ void setup() {
 }
 
 void loop() {
+    checkAlarm();
     Get_Button();
     Get_Serial();
     websocket.loop();
