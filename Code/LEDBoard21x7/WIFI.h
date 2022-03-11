@@ -7,48 +7,48 @@ void webSocketEvent(uint8_t num,
             Serial.printf("[%u] Disconnected!\n", num);
             break;
         case WStype_CONNECTED: {
-            IPAddress ip = websocket.remoteIP(num);
-            Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num,
-                          ip[0], ip[1], ip[2], ip[3], payload);
+                IPAddress ip = websocket.remoteIP(num);
+                Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num,
+                              ip[0], ip[1], ip[2], ip[3], payload);
 
-            String message = "{\"LED\":\"OFF\",\"Mode\":";
-            if (isDisplay)
-                message = "{\"LED\":\"ON\",\"Mode\":";
-            message = message + Mode + ",\"Year\":" + YEAR +
-                      ",\"Month\":" + MONTH + ",\"Date\":" + DATE +
-                      ",\"Hour\":" + HOUR + ",\"Minute\":" + MINUTE + '}';
+                String message = "{\"LED\":\"OFF\",\"Mode\":";
+                if (isDisplay)
+                    message = "{\"LED\":\"ON\",\"Mode\":";
+                message = message + Mode + ",\"Year\":" + YEAR +
+                          ",\"Month\":" + MONTH + ",\"Date\":" + DATE +
+                          ",\"Hour\":" + HOUR + ",\"Minute\":" + MINUTE + '}';
 
-            websocket.sendTXT(num, message);
-        } break;
+                websocket.sendTXT(num, message);
+            } break;
         case WStype_TEXT: {
-            Serial.printf("[%u] get Text: %s\n", num, payload);
-            String message = String((char*)(payload));
-            DynamicJsonDocument doc(100);
-            DeserializationError error = deserializeJson(doc, message);
-            if (error) {
-                Serial.print(F("deserializeJson() failed: "));
-                Serial.println(error.f_str());
-                return;
-            }
-            if (doc.containsKey("LED")) {
-                if (doc["LED"] == "ON")
-                    isDisplay = true;
-                else if (doc["LED"] == "OFF")
-                    isDisplay = false;
-            } else if (doc.containsKey("Mode")) {
-                Mode = (uint8_t)doc["Mode"];
-            } else if (doc.containsKey("Hour") && Mode == 0) {
-                HOUR = (uint8_t)doc["Hour"];
-                MINUTE = (uint8_t)doc["Minute"];
-                SetTime();
-            } else if (doc.containsKey("Year") && Mode == 1) {
-                YEAR = (uint16_t)doc["Year"];
-                MONTH = (uint8_t)doc["Month"];
-                DATE = (uint8_t)doc["Date"];
-                SetTime();
-            }
-            websocket.broadcastTXT(message);
-        } break;
+                Serial.printf("[%u] get Text: %s\n", num, payload);
+                String message = String((char*)(payload));
+                DynamicJsonDocument doc(100);
+                DeserializationError error = deserializeJson(doc, message);
+                if (error) {
+                    Serial.print(F("deserializeJson() failed: "));
+                    Serial.println(error.f_str());
+                    return;
+                }
+                if (doc.containsKey("LED")) {
+                    if (doc["LED"] == "ON")
+                        isDisplay = true;
+                    else if (doc["LED"] == "OFF")
+                        isDisplay = false;
+                } else if (doc.containsKey("Mode")) {
+                    Mode = (uint8_t)doc["Mode"];
+                } else if (doc.containsKey("Hour") && Mode == 0) {
+                    HOUR = (uint8_t)doc["Hour"];
+                    MINUTE = (uint8_t)doc["Minute"];
+                    SetTime();
+                } else if (doc.containsKey("Year") && Mode == 1) {
+                    YEAR = (uint16_t)doc["Year"];
+                    MONTH = (uint8_t)doc["Month"];
+                    DATE = (uint8_t)doc["Date"];
+                    SetTime();
+                }
+                websocket.broadcastTXT(message);
+            } break;
     }
 }
 
@@ -82,8 +82,9 @@ void WIFI_Init() {
 
 void Server_Init() {
     // Home page
-    server.on("/index", HTTP_POST, [](AsyncWebServerRequest* request) {
+    server.on("/", [](AsyncWebServerRequest * request) {
         // Get POST data
+        String user = "", pwd = "";
         uint8_t params = request->params();
         for (uint8_t i = 0; i < params; i++) {
             AsyncWebParameter* p = request->getParam(i);
@@ -98,24 +99,24 @@ void Server_Init() {
         if (user == login_user && pwd == login_pwd) {
             request->send(SPIFFS, "/index.html", "text/html");
         } else {
-            request->redirect("/");
+            request->redirect("/login");
         }
     });
 
     // Login page
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
+    server.on("/login", HTTP_GET, [](AsyncWebServerRequest * request) {
         request->send(SPIFFS, "/login.html", "text/html");
     });
 
-    server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest* request) {
+    server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {
         request->send(SPIFFS, "/favicon.png", "image/png");
     });
 
-    server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest* request) {
+    server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest * request) {
         request->send(SPIFFS, "/style.css", "text/css");
     });
 
-    server.on("/index.js", HTTP_GET, [](AsyncWebServerRequest* request) {
+    server.on("/index.js", HTTP_GET, [](AsyncWebServerRequest * request) {
         request->send(SPIFFS, "/index.js", "text/js");
     });
 

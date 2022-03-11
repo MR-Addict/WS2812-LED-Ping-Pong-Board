@@ -21,7 +21,6 @@ const uint8_t NUM_LEDS = kMatrixWidth * kMatrixHeight;
 
 AsyncWebServer server(80);
 WebSocketsServer websocket(81);
-String user = "", pwd = "";
 
 BluetoothSerial SerialBT;
 RTC_DS3231 rtc;
