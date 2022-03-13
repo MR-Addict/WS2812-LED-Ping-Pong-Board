@@ -1,5 +1,5 @@
 boolean isDisplay = false;
-boolean isAlarm = false;
+volatile boolean isAlarm = false;
 uint8_t Mode = 0;
 uint8_t R = 255, G = 11, B = 76;
 uint8_t Palette_Mode = 0;

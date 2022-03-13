@@ -1,3 +1,7 @@
+void alarm_irq() {
+    isAlarm = true;
+}
+
 // 获取LED的位置
 uint8_t Get_XY(uint8_t x, uint8_t y) {
     if (x >= kMatrixWidth || y >= kMatrixHeight)
@@ -162,6 +166,21 @@ void Show_Date(uint8_t Speed = 150) {
 // 设置时间
 void SetTime() {
     rtc.adjust(DateTime(YEAR, MONTH, DATE, HOUR, MINUTE, 0));
+}
+
+// 检查闹铃
+void checkAlarm() {
+    if (isAlarm) {
+        if (rtc.alarmFired(1)) {
+            isDisplay = false;
+            rtc.clearAlarm(1);
+        }
+        else if (rtc.alarmFired(2)) {
+            isDisplay = true;
+            rtc.clearAlarm(2);
+        }
+        isAlarm = false;
+    }
 }
 
 // 获取按钮操作

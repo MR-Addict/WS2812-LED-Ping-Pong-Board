@@ -1,4 +1,5 @@
 boolean isDisplay = false;
+volatile bool isAlarm = false;
 uint8_t Mode = 0;
 uint8_t R = 255, G = 11, B = 76;
 uint8_t Palette_Mode = 0;
@@ -10,6 +11,7 @@ const uint8_t Button1 = 33;
 const uint8_t Button2 = 32;
 const uint8_t Button3 = 19;
 const uint8_t Button4 = 23;
+const uint8_t INT_PIN = 5;
 
 const uint8_t BRIGHTNESS = 100;
 const uint8_t kMatrixWidth = 19;
