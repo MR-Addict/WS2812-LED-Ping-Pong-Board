@@ -24,7 +24,7 @@ The baord features built-in animated effects, time display, scrolling date displ
 
 You should solder your comonents like below schematic:
 
-![Shcematic](PCB/LED%20Board%20Shcematic.png)
+![Shcematic](PCB/schematic.png)
 
 But you can also send my [custom PCB](PCB/LED%20Board%20Gerber.zip) gerber files to PCB factory which is at `PCB/LED Board Gerber`.
 
