@@ -85,7 +85,7 @@ This Web UI use websockets, so the board's data are Synchronized to all clients.
 
 DS3231 has two alarms, so I use them as two timer schedule to turn LED On and OFF.
 
-Alarm1 will turn LED OFF at **00:00**, and Alarm2 will turn LED ON at **08:00**.
+Alarm1 will turn LED OFF at **00:00**, and Alarm2 will turn LED ON at **12:00**.
 
 ## 4. Preview Video
 
