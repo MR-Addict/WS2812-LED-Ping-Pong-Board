@@ -7,6 +7,7 @@ The baord features built-in animated effects, time display, scrolling date displ
 ## 1. Components needed
 
 ### 1.1 Electronics
+
 - **DC005** X 1
 - **Button** X 4
 - **WS2812LED** X 135
@@ -16,6 +17,7 @@ The baord features built-in animated effects, time display, scrolling date displ
 - **5V 3A Power Adapter** X 1
 
 ### 1.2 Other parts
+
 - **Ping Pong Balls** X 135
 - **24.78mm X 84mm Ply Board** X 1
 - **Some Other Decoration Parts** X N
@@ -24,17 +26,17 @@ The baord features built-in animated effects, time display, scrolling date displ
 
 You should solder your comonents like below schematic:
 
-![Shcematic](PCB/schematic.png)
+![schematic](pcb/schematic.png)
 
-But you can also send my [custom PCB](PCB/LED%20Board%20Gerber.zip) gerber files to PCB factory which is at `PCB/LED Board Gerber`.
+But you can also send my [custom PCB](pcb/LED-Board-Gerber.zip) gerber files to PCB factory which is at `PCB/LED Board Gerber`.
 
 Then, layout your ping pong balls like below:
 
-![Layout](Images/Board%20Layout.jpg)
+![layout](images/layout.jpg)
 
 The final project should be like this:
 
-![Final](Images/Final%20Project.jpg)
+![project](images/project.jpg)
 
 ### 3. Contorl Your Board
 
@@ -55,11 +57,11 @@ There are three methods to control your LED board:
 
 ### 3.2 Android App
 
-You can [download](Android%20App/LED%20Board.apk) my custom android app to contorl your board.
+You can [download](android/LED-Board.apk) my custom android app to contorl your board.
 
 Note that you should connect your Board Bluetooth first whose deafult device name is `LED Board 507`.
 
-![Android App](Images/Android%20App.png)
+![Android App](images/android.png)
 
 ### 3.3 Web UI
 
@@ -69,15 +71,15 @@ Because this LED Board is put in our office, so I use **STAION** mode to let it 
 
 In order to easily access it, I change it's hostname to `ledboard-507`, so I can access it through http://ledboard-507.
 
-At the same time, I add login user authentication. It's default username is `admin`, dafault password is `dinghao666`.
+At the same time, I add login user authentication. It's default username is `admin`, dafault password is `stas`.
 
-![LED board login](Images/led%20board%20login.png)
+![LED board login](images/web-login.png)
 
 All of these username, password, ssid and ssid password are put in a **secret header filed** in arduino library folder.
 
 After login, the web UI should be like this.
 
-![Web UI](Images/ledboard%20web%20ui.png)
+![Web UI](images/web-dashboard.png)
 
 This Web UI use websockets, so the board's data are Synchronized to all clients.
 
@@ -85,7 +87,7 @@ This Web UI use websockets, so the board's data are Synchronized to all clients.
 
 DS3231 has two alarms, so I use them as two timer schedule to turn LED On and OFF.
 
-Alarm1 will turn LED OFF at **00:00**, and Alarm2 will turn LED ON at **12:00**.
+Alarm1 will turn LED OFF at **01:00**, and Alarm2 will turn LED ON at **14:00**.
 
 ## 4. Preview Video
 
