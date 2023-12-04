@@ -1,37 +1,11 @@
-var websocket = new WebSocket(`ws://${window.location.hostname}/ws`);
+let websocket = null;
 
-// websocket event declear
-websocket.onopen = function (event) {
-  onOpen(event);
-};
-websocket.onclose = function (event) {
-  onClose(event);
-};
-websocket.onerror = function (event) {
-  onError(event);
-};
-websocket.onmessage = function (event) {
-  onMessage(event);
-};
-
-// websocket events
-function onOpen(event) {
-  console.log("Server Connected!");
-}
-function onClose(event) {
-  console.log("Server Disconnected!");
-  alert("Server Disconnected!");
-}
-function onError(event) {
-  console.log("Error:" + event.data);
-  alert("Error Occured!");
-}
 function onMessage(event) {
   var message;
   var switchStatus;
   var JSONContent = JSON.parse(event.data);
-  if (JSONContent.hasOwnProperty("LED")) {
-    if (JSONContent.LED == "ON") {
+  if (JSONContent.hasOwnProperty("state")) {
+    if (JSONContent.state == "on") {
       message = "LED ON";
       switchStatus = true;
     } else {
@@ -41,24 +15,24 @@ function onMessage(event) {
     document.getElementById("LED").innerHTML = message;
     document.getElementById("output").checked = switchStatus;
   }
-  if (JSONContent.hasOwnProperty("Mode")) {
-    document.getElementById("ledmode").value = JSONContent.Mode;
-    message = "Mode:" + JSONContent.Mode;
+  if (JSONContent.hasOwnProperty("mode")) {
+    document.getElementById("ledmode").value = JSONContent.mode;
+    message = "mode:" + JSONContent.mode;
   }
-  if (JSONContent.hasOwnProperty("Hour")) {
-    var hour = parseInt(JSONContent.Hour);
-    var minute = parseInt(JSONContent.Minute);
+  if (JSONContent.hasOwnProperty("hour")) {
+    var hour = parseInt(JSONContent.hour);
+    var minute = parseInt(JSONContent.minute);
     if (hour < 10) hour = "0" + hour;
     if (minute < 10) minute = "0" + minute;
     message = hour + ":" + minute;
     document.getElementById("timepicker").value = message;
   }
-  if (JSONContent.hasOwnProperty("Year")) {
-    var month = parseInt(JSONContent.Month);
-    var date = parseInt(JSONContent.Date);
+  if (JSONContent.hasOwnProperty("year")) {
+    var month = parseInt(JSONContent.month);
+    var date = parseInt(JSONContent.date);
     if (month < 10) month = "0" + month;
     if (date < 10) date = "0" + date;
-    message = JSONContent.Year + "-" + month + "-" + date;
+    message = JSONContent.year + "-" + month + "-" + date;
     document.getElementById("datepicker").value = message;
   }
 }
@@ -66,47 +40,52 @@ function onMessage(event) {
 // Swtich click send data
 function switchLED(element) {
   var command;
-  if (element.checked) command = '{"LED":"ON"}';
-  else command = '{"LED":"OFF"}';
-  websocket.send(command);
-  console.log(command);
+  if (element.checked) command = '{"state":"on"}';
+  else command = '{"state":"off"}';
+  if (websocket) websocket.send(command);
 }
 
 // Select led mode
-function selectLEDMode(element) {
+function selectLEDMode() {
   var modeValue = document.getElementById("ledmode").value;
-  modeValue = '{"Mode":' + modeValue + "}";
-  console.log(modeValue);
-  websocket.send(modeValue);
+  modeValue = '{"mode":' + modeValue + "}";
+  if (websocket) websocket.send(modeValue);
 }
 
 /* Set time */
-function setTime(element) {
+function setTime() {
   if (document.getElementById("ledmode").value != 0) {
     alert("该功能只在显示日期模式下有效！");
     return;
   }
   var time = document.getElementById("timepicker").value;
-  time = '{"Hour":' + parseInt(time.substr(0, 2)) + ',"Minute":' + parseInt(time.substr(3, 2)) + "}";
-  console.log(time);
-  websocket.send(time);
+  time = '{"hour":' + parseInt(time.substr(0, 2)) + ',"minute":' + parseInt(time.substr(3, 2)) + "}";
+  if (websocket) websocket.send(time);
 }
 
 /* Set date */
-function setDate(element) {
+function setDate() {
   if (document.getElementById("ledmode").value != 1) {
     alert("该功能只在显示日期模式下有效！");
     return;
   }
   var date = document.getElementById("datepicker").value;
   date =
-    '{"Year":' +
+    '{"year":' +
     date.substr(0, 4) +
-    ',"Month":' +
+    ',"month":' +
     parseInt(date.substr(5, 2)) +
-    ',"Date":' +
+    ',"date":' +
     parseInt(date.substr(8, 2)) +
     "}";
-  console.log(date);
-  websocket.send(date);
+  if (websocket) websocket.send(date);
 }
+
+function handleConnect() {
+  websocket = new WebSocket(`ws://${window.location.hostname}/ws`);
+
+  websocket.onmessage = onMessage;
+  websocket.onclose = () => setTimeout(handleConnect, 1000);
+}
+
+handleConnect();

@@ -1,5 +1,5 @@
-boolean isDisplay = false;
-volatile boolean isAlarm = false;
+bool isDisplay = false;
+volatile bool isAlarm = false;
 uint8_t Mode = 0;
 uint8_t R = 255, G = 11, B = 76;
 uint8_t Palette_Mode = 0;
@@ -19,18 +19,27 @@ const uint8_t kMatrixHeight = 7;
 const uint8_t LAST_VISIBLE_LED = 135;
 const uint8_t NUM_LEDS = kMatrixWidth * kMatrixHeight;
 
-const String LOGIN_USER = "admin";
-const String LOGIN_PASSWORD = "stas";
+const char* hostname = "ledboard";
+const char* WIFI_SSID = "STAS-507";
+const char* WIFI_PASSWORD = "manke666";
 
-const String WIFI_SSID = "STAS-507";
-const String WIFI_PASSWORD = "manke666";
+const char* mqtt_id = "school_office_clock";
+const char* mqtt_broker = "172.18.224.1";
+const char* mqtt_user = "client";
+const char* mqtt_password = "stas";
+const char* mqtt_sub_topic = "school/office/clock/set";
+const char* mqtt_pub_topic = "school/office/clock/status";
+const char* mqtt_will_topic = mqtt_pub_topic;
+const char* mqtt_will_msg = "{\"state\":\"off\",\"mode\":\"0\",\"online\":\"off\"}";
 
 AsyncWebServer server(80);
 AsyncWebSocket websocket("/ws");
 
+WiFiClient espClient;
+MQTTClient mqtt;
+
 RTC_DS3231 rtc;
 CRGB leds[NUM_LEDS];
-BluetoothSerial SerialBT;
 CRGBPalette16 ColorPalette[5] = { RainbowColors_p, CloudColors_p, OceanColors_p, LavaColors_p, ForestColors_p };
 
 const uint8_t XY_Table[] = {

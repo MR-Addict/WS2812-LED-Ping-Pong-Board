@@ -154,6 +154,15 @@ void SetTime() {
   rtc.adjust(DateTime(YEAR, MONTH, DATE, HOUR, MINUTE, 0));
 }
 
+// publish message
+void publishMessage() {
+  String message = "{\"state\":\"off\",\"mode\":";
+  if (isDisplay) message = "{\"state\":\"on\",\"mode\":";
+  message = message + Mode + ",\"online\":\"on\",\"year\":" + YEAR + ",\"month\":" + MONTH + ",\"date\":" + DATE + ",\"hour\":" + HOUR + ",\"minute\":" + MINUTE + '}';
+  mqtt.publish(mqtt_pub_topic, message, true, 0);
+  websocket.textAll(message);
+}
+
 // 检查闹铃
 void checkAlarm() {
   if (isAlarm) {
@@ -169,49 +178,35 @@ void checkAlarm() {
 }
 
 // 获取按钮操作
-void Get_Button() {
+void checkButton() {
   if (!digitalRead(Button1)) {  // 上一个模式
-    if (Mode > 0) Mode--;
-    else Mode = 7;
-    Palette_Mode = 0;
     delay(10);
-    while (!digitalRead(Button1));
+    if (!digitalRead(Button1)) {
+      while (!digitalRead(Button1));
+      if (Mode > 0) Mode--;
+      else Mode = 7;
+      publishMessage();
+    }
   } else if (!digitalRead(Button2)) {  // 下一个模式
-    Mode = (Mode + 1) % 8;
     delay(10);
-    while (!digitalRead(Button2));
+    if (!digitalRead(Button1)) {
+      while (!digitalRead(Button2));
+      Mode = (Mode + 1) % 8;
+      publishMessage();
+    }
   } else if (!digitalRead(Button3)) {  // 更换背景
-    Palette_Mode = (Palette_Mode + 1) % 5;
     delay(10);
-    while (!digitalRead(Button3));
+    if (!digitalRead(Button1)) {
+      while (!digitalRead(Button3));
+      Palette_Mode = (Palette_Mode + 1) % 5;
+      publishMessage();
+    }
   } else if (!digitalRead(Button4)) {  // 打开/关闭显示
-    isDisplay = !isDisplay;
     delay(10);
-    while (!digitalRead(Button4));
-  }
-}
-
-// 获取蓝牙数据
-void Get_Serial() {
-  if (SerialBT.available()) {
-    uint8_t message = SerialBT.read();
-    uint16_t parameter = SerialBT.parseInt();
-    if (message == 'S') isDisplay = parameter;
-    else if (message == 'A') Mode = parameter;
-    else if (message == 'B') Palette_Mode = parameter;
-    else if (message == 'R') {
-      R = parameter;
-      G = SerialBT.parseInt();
-      B = SerialBT.parseInt();
-    } else if (message == 'H') {
-      HOUR = parameter;
-      MINUTE = SerialBT.parseInt();
-      SetTime();
-    } else if (message == 'Y') {
-      YEAR = parameter;
-      MONTH = SerialBT.parseInt();
-      DATE = SerialBT.parseInt();
-      SetTime();
+    if (!digitalRead(Button1)) {
+      while (!digitalRead(Button4));
+      isDisplay = !isDisplay;
+      publishMessage();
     }
   }
 }
@@ -232,17 +227,15 @@ void Random_Effects() {
 
 //　显示特效
 void Display() {
-  if (isDisplay) {
-    switch (Mode) {
-      case 0: Show_Time(); break;
-      case 1: Show_Date(); break;
-      case 2: Cross_Snack(); break;
-      case 3: Cross_Line(); break;
-      case 4: Cross_Dot(); break;
-      case 5: Twinkle(); break;
-      case 6: Faded_Background(); break;
-      case 7: Random_Effects(); break;
-    }
-  } else FastLED.clear();
+  if (!isDisplay)FastLED.clear();
+  else if (Mode == 0)Show_Time();
+  else if (Mode == 1)Show_Date();
+  else if (Mode == 2)Cross_Snack();
+  else if (Mode == 3)Cross_Line();
+  else if (Mode == 4)Cross_Dot();
+  else if (Mode == 5)Twinkle();
+  else if (Mode == 6)Faded_Background();
+  else if (Mode = 7)Random_Effects();
+
   FastLED.show();
 }
