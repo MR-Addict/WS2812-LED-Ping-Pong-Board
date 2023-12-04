@@ -189,21 +189,21 @@ void checkButton() {
     }
   } else if (!digitalRead(Button2)) {  // 下一个模式
     delay(10);
-    if (!digitalRead(Button1)) {
+    if (!digitalRead(Button2)) {
       while (!digitalRead(Button2));
       Mode = (Mode + 1) % 8;
       publishMessage();
     }
   } else if (!digitalRead(Button3)) {  // 更换背景
     delay(10);
-    if (!digitalRead(Button1)) {
+    if (!digitalRead(Button3)) {
       while (!digitalRead(Button3));
       Palette_Mode = (Palette_Mode + 1) % 5;
       publishMessage();
     }
   } else if (!digitalRead(Button4)) {  // 打开/关闭显示
     delay(10);
-    if (!digitalRead(Button1)) {
+    if (!digitalRead(Button4)) {
       while (!digitalRead(Button4));
       isDisplay = !isDisplay;
       publishMessage();

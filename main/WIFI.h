@@ -1,9 +1,6 @@
 void connectionLostCallback(WiFiEvent_t event, WiFiEventInfo_t info) {
-  // Reconnect
-  Serial.print("WiFi lost connection. Reason: ");
-  Serial.println(info.wifi_sta_disconnected.reason);
-  Serial.println("Trying to Reconnect");
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.println("WiFi connection lost. Try to reconnect...");
 }
 
 void setupWiFi() {
@@ -21,14 +18,12 @@ void setupWiFi() {
 
   // Set station mode
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("Connecting to ");
-  Serial.print(WIFI_SSID);
+  Serial.printf("Connecting to %s", WIFI_SSID);
 
   // Connect to WIFI
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print('.');
   }
-  Serial.println();
   Serial.printf("\nLocal IP: %s\n", WiFi.localIP().toString().c_str());
 }
