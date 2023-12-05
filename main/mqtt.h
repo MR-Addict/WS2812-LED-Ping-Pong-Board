@@ -25,15 +25,23 @@ void mqttConnect() {
   mqtt.setKeepAlive(60);
   mqtt.setCleanSession(false);
   mqtt.setWill(mqtt_will_topic, mqtt_will_msg, true, 0);
-  while (!mqtt.connected()) {
+
+  uint8_t attempts = 0, maxAttempts = 10;
+  while (!mqtt.connected() && attempts < maxAttempts) {
     if (mqtt.connect(mqtt_id, mqtt_user, mqtt_password)) {
       Serial.printf("MQTT broker: %s\n", mqtt_broker);
     } else {
+      delay(1000);
       Serial.println("Failed to connect to MQTT broker, retrying in 5 seconds...");
-      delay(5000);
     }
+    attempts++;
   }
-  mqtt.subscribe(mqtt_sub_topic);
+
+  if (attempts == 10) {
+    mqttBrokerFailed = true;
+    Serial.println("Max attemptes, abort mqtt API");
+  }
+  else mqtt.subscribe(mqtt_sub_topic);
 }
 
 void mqttSetup() {
@@ -44,6 +52,8 @@ void mqttSetup() {
 }
 
 void mqttLoop() {
-  mqtt.loop();
-  if (!mqtt.connected())mqttConnect();
+  if (!mqttBrokerFailed) {
+    mqtt.loop();
+    if (!mqtt.connected())mqttConnect();
+  }
 }

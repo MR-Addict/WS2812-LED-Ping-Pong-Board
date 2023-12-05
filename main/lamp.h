@@ -159,7 +159,7 @@ void publishMessage() {
   String message = "{\"state\":\"off\",\"mode\":";
   if (isDisplay) message = "{\"state\":\"on\",\"mode\":";
   message = message + Mode + ",\"online\":\"on\",\"year\":" + YEAR + ",\"month\":" + MONTH + ",\"date\":" + DATE + ",\"hour\":" + HOUR + ",\"minute\":" + MINUTE + '}';
-  mqtt.publish(mqtt_pub_topic, message, true, 0);
+  if (!mqttBrokerFailed)mqtt.publish(mqtt_pub_topic, message, true, 0);
   websocket.textAll(message);
 }
 
@@ -169,9 +169,11 @@ void checkAlarm() {
     if (rtc.alarmFired(1)) {
       isDisplay = false;
       rtc.clearAlarm(1);
+      publishMessage();
     } else if (rtc.alarmFired(2)) {
       isDisplay = true;
       rtc.clearAlarm(2);
+      publishMessage();
     }
     isAlarm = false;
   }

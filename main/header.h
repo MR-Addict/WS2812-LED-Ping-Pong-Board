@@ -23,6 +23,7 @@ const char* hostname = "ledboard";
 const char* WIFI_SSID = "STAS-507";
 const char* WIFI_PASSWORD = "manke666";
 
+bool mqttBrokerFailed = false;
 const char* mqtt_id = "school_office_clock";
 const char* mqtt_broker = "172.18.224.1";
 const char* mqtt_user = "client";

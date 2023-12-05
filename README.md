@@ -67,12 +67,6 @@ In order to easily access it, I change it's hostname to `ledboard`, so I can acc
 
 This Web UI use websockets, so the board's data are Synchronized to all clients.
 
-### 3.4 Special Function
-
-DS3231 has two alarms, so I use them as two timer schedule to turn LED On and OFF.
-
-Alarm1 will turn LED OFF at **00:00**, and Alarm2 will turn LED ON at **12:00**.
-
 ## 4. Preview Video
 
 https://user-images.githubusercontent.com/75357598/121656129-bf379a80-cad1-11eb-9fc5-0b48965fc32e.mp4

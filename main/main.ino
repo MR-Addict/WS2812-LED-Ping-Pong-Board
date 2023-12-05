@@ -28,8 +28,8 @@ void setup() {
   rtc.clearAlarm(1);
   rtc.clearAlarm(2);
   attachInterrupt(digitalPinToInterrupt(INT_PIN), alarm_irq, FALLING);
-  rtc.setAlarm1(DateTime(2021, 12, 28, 0, 0, 0), DS3231_A1_Hour); // 每日凌晨0点关闭LED
-  rtc.setAlarm2(DateTime(2021, 12, 28, 12, 0, 0), DS3231_A2_Hour); // 每日中午12点打开LED
+  rtc.setAlarm1(DateTime(2021, 12, 28, 1, 0, 0), DS3231_A1_Hour); // 每日凌晨1点关闭LED
+  rtc.setAlarm2(DateTime(2021, 12, 28, 13, 0, 0), DS3231_A2_Hour); // 每日中午13点打开LED
   DateTime now = rtc.now();
   YEAR = now.year(), MONTH = now.month(), DATE = now.day(), HOUR = now.hour(), MINUTE = now.minute();
 
